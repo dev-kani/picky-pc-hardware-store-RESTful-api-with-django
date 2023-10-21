@@ -1,5 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
+from .fields import OrderField
 
 
 class IsActiveQuerySet(models.QuerySet):
@@ -65,9 +67,7 @@ class ProductVariant(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='product_variant')
     is_active = models.BooleanField(default=False)
-    order = models.PositiveIntegerField()
-
-    # order = OrderField(unique_for_field='product', blank=True)
+    order = OrderField(unique_for_field='product', blank=True)
 
     # attribute_value = models.ManyToManyField(
     #     AttributeValue,
@@ -81,15 +81,15 @@ class ProductVariant(models.Model):
     def __str__(self):
         return str(self.sku)
 
-    # def clean(self):
-    #     qs = ProductVariant.objects.filter(product=self.product)
-    #     for obj in qs:
-    #         if self.id != obj.id and self.order == obj.order:
-    #             raise ValidationError('Duplicate value in ORDER.')
+    def clean(self):
+        qs = ProductVariant.objects.filter(product=self.product)
+        for obj in qs:
+            if self.id != obj.id and self.order == obj.order:
+                raise ValidationError('Duplicate value in ORDER.')
 
-    # def save(self, *args, **kwargs):
-    #     self.full_clean()
-    #     return super(ProductVariant, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super(ProductVariant, self).save(*args, **kwargs)
 
     # size = models.IntegerField()
     # color = models.CharField(max_length=50)

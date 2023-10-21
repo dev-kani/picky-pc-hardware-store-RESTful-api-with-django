@@ -8,7 +8,7 @@ from .models import Brand, Category, Product, ProductVariant
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'title', 'is_active']
+        fields = ['id', 'title', 'slug', 'is_active']
 
 
 class BrandSerializer(serializers.ModelSerializer):
