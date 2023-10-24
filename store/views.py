@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.generics import get_object_or_404
@@ -32,9 +33,14 @@ class ProductViewSet(viewsets.ViewSet):
 
     @extend_schema(responses=ProductSerializer)
     def retrieve(self, request, slug=None):
-        # product = get_object_or_404(self.queryset.filter(pk=pk), many=True)
-        serializer = ProductSerializer(self.queryset.filter(slug=slug).select_related('category', 'brand'), many=True)
-        return Response(serializer.data)
+        serializer = ProductSerializer(
+            Product.objects.filter(slug=slug)
+            .select_related('category', 'brand')  # for Foreign Key relations
+            .prefetch_related(Prefetch('product_variant__product_image'))  # for reverse Foreign Key relations
+            .prefetch_related(Prefetch('product_variant__attribute_value__attribute')),
+            many=True)
+        data = Response(serializer.data)
+        return data
 
     @extend_schema(responses=ProductSerializer)
     def list(self, request):
@@ -58,6 +64,7 @@ class ProductViewSet(viewsets.ViewSet):
         url_path=r"category/(?P<slug>[\w-]+)",
         # url_name="all"
     )
+    @extend_schema(responses=ProductSerializer)
     def list_product_by_category_slug(self, request, slug=None):
         serializer = ProductSerializer(
             self.queryset.filter(category__slug=slug), many=True
