@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Brand, Category, Product, ProductVariant, ProductImage, Attribute, AttributeValue
+from .models import Category, Product, ProductVariant, ProductImage, Attribute, AttributeValue
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -8,17 +8,11 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'slug', 'is_active']
 
 
-class BrandSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Brand
-        fields = ['id', 'title', 'is_active']
-
-
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        # exclude = ['product_variant', 'order']
-        fields = '__all__'
+        exclude = ['id', 'product_variant']
+        # fields = '__all__'
 
 
 class AttributeSerializer(serializers.ModelSerializer):
@@ -57,36 +51,47 @@ class ProductVariantSerializer(serializers.ModelSerializer):
         av_data = data.pop('attribute_value')
         attr_values = {}
         for key in av_data:
-            attr_values.update({key['attribute']['id']: key['attribute_value']})
+            attr_values.update({key['attribute']['title']: key['attribute_value']})
         data.update({'specification': attr_values})
         return data
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    brand = serializers.CharField(source='brand.title')
-    category = CategorySerializer()
+    # category = CategorySerializer()
     product_variant = ProductVariantSerializer(many=True)
-    attribute = serializers.SerializerMethodField()
+    attribute_value = AttributeValueSerializer(many=True)
+
+    # attribute = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = [
             'title',
             'slug',
+            'product_id',
             'description',
-            'brand',
             'is_digital',
             'is_active',
             'condition',
-            'category',
+            # 'category',
+            'attribute_value',
             'product_variant',
-            'attribute'
+            # 'attribute'
         ]
 
-    def get_attribute(self, obj):
-        attribute = Attribute.objects.filter(product_type_attribute__product__id=obj.id)
-        return AttributeSerializer(attribute, many=True).data
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        av_data = data.pop('attribute_value')
+        attr_values = {}
+        for key in av_data:
+            attr_values.update({key['attribute']['title']: key['attribute_value']})
+        data.update({'attribute': attr_values})
+        return data
 
+    # def get_attribute(self, obj):
+    #     attribute = Attribute.objects.filter(product_type_attribute__product__id=obj.id)
+    #     return AttributeSerializer(attribute, many=True).data
+    #
     # def to_representation(self, instance):
     #     data = super().to_representation(instance)
     #     av_data = data.pop('attribute')
@@ -95,3 +100,35 @@ class ProductSerializer(serializers.ModelSerializer):
     #         attr_values.update({key['id']: key['title']})
     #     data.update({'type_specification': attr_values})
     #     return data
+
+
+class ProductVariantCategorySerializer(serializers.ModelSerializer):
+    product_image = ProductImageSerializer(many=True)
+
+    class Meta:
+        model = ProductVariant
+        fields = ['price', 'product_image']
+
+
+class ProductCategorySerializer(serializers.ModelSerializer):
+    product_variant = ProductVariantCategorySerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = [
+            'title',
+            'slug',
+            'product_id',
+            'created_at',
+            'product_variant'
+        ]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        x = data.pop('product_variant')
+        if x:
+            price = x[0]['price']
+            image = x[0]['product_image']
+            data.update({'price': price})
+            data.update({'image': image})
+        return data

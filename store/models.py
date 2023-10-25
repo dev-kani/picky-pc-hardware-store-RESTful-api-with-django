@@ -11,8 +11,8 @@ class IsActiveQuerySet(models.QuerySet):
 
 class Category(MPTTModel):
     objects = IsActiveQuerySet().as_manager()
-    title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=255)
+    title = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=255, unique=True)
     is_active = models.BooleanField(default=False)
     parent = TreeForeignKey("self", on_delete=models.PROTECT, null=True, blank=True)
 
@@ -26,24 +26,22 @@ class Category(MPTTModel):
         verbose_name_plural = "Categories"
 
 
-class Brand(models.Model):
-    objects = IsActiveQuerySet().as_manager()
-    title = models.CharField(max_length=100)
-    is_active = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.title
-
-
 class Product(models.Model):
     objects = IsActiveQuerySet().as_manager()
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=255)
+    product_id = models.CharField(max_length=10, unique=True)
     description = models.TextField(blank=True)
-    brand = models.ForeignKey(Brand, on_delete=models.PROTECT)
     is_digital = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
-    product_type = models.ForeignKey('ProductType', on_delete=models.PROTECT)
+    product_type = models.ForeignKey(
+        'ProductType', on_delete=models.PROTECT, related_name='product_type'
+    )
+    attribute_value = models.ManyToManyField(
+        'AttributeValue',
+        through='ProductAttributeValue',
+        related_name='product_attr_value'
+    )
     CONDITION_CHOICES = (
         ('New', 'New'),
         ('Used', 'Used'),
@@ -52,6 +50,7 @@ class Product(models.Model):
         max_length=4, choices=CONDITION_CHOICES, default='New')
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
     def __str__(self):
         return self.title
@@ -72,6 +71,16 @@ class AttributeValue(models.Model):
 
     def __str__(self):
         return f'{self.attribute.title}-{self.attribute_value}'
+
+
+class ProductAttributeValue(models.Model):
+    attribute_value = models.ForeignKey(
+        AttributeValue, on_delete=models.CASCADE, related_name='product_value_av')
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name='product_value_pv')
+
+    class Meta:
+        unique_together = ['attribute_value', 'product']
 
 
 class ProductVariantAttributeValue(models.Model):
@@ -108,15 +117,20 @@ class ProductVariant(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     sku = models.CharField(max_length=100)
     stock_qty = models.IntegerField()
+    is_active = models.BooleanField(default=False)
+    weight = models.FloatField()
+    order = OrderField(unique_for_field='product', blank=True)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='product_variant')
-    is_active = models.BooleanField(default=False)
-    order = OrderField(unique_for_field='product', blank=True)
     attribute_value = models.ManyToManyField(
         AttributeValue,
         through='ProductVariantAttributeValue',
         related_name='product_variant_attribute_value'
     )
+    product_type = models.ForeignKey(
+        'ProductType', on_delete=models.PROTECT, related_name='product_variant_type'
+    )
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
     def clean(self):
         qs = ProductVariant.objects.filter(product=self.product)
@@ -128,14 +142,8 @@ class ProductVariant(models.Model):
         self.full_clean()
         return super(ProductVariant, self).save(*args, **kwargs)
 
-    # def __str__(self):
-    #     return str(self.order)
-
     def __str__(self):
         return str(self.sku)
-
-    # size = models.IntegerField()
-    # color = models.CharField(max_length=50)
 
 
 class ProductImage(models.Model):
@@ -157,17 +165,13 @@ class ProductImage(models.Model):
         return super(ProductImage, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.alternative_text
-
-    # def __str__(self):
-    #     return self.url
-
-    # def __str__(self):
-    #     return self.order
+        return f'{self.product_variant.sku}_img'
 
 
 class ProductType(models.Model):
     title = models.CharField(max_length=100)
+    parent = models.ForeignKey(
+        'self', on_delete=models.PROTECT, null=True, blank=True)
     attribute = models.ManyToManyField(
         Attribute,
         through='ProductTypeAttribute',
