@@ -7,12 +7,12 @@ name = "pypi"
 django = "4.2.6"
 django-mptt = "0.15.0"
 djangorestframework = "3.14.0"
-drf-spectacular = "*"
-django-cors-headers = "*"
-pillow = "*"
+drf-spectacular = "0.26.5"
+django-cors-headers = "4.3.0"
+pillow = "10.1.0"
 
 [dev-packages]
-django-debug-toolbar = "*"
+django-debug-toolbar = "4.2.0"
 
 [requires]
 python_version = "3.11"
