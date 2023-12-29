@@ -1,17 +1,19 @@
-from rest_framework.routers import DefaultRouter
+from rest_framework_nested import routers
 from . import views
 
-router = DefaultRouter()
-router.register(r'categories', views.CategoryViewSet)
-router.register(r'products', views.ProductViewSet)
+router = routers.DefaultRouter()
+router.register('categories', views.CategoryViewSet)
+router.register('products', views.ProductViewSet, basename='products')
+router.register('carts', views.CartViewSet, basename='carts')
+router.register('customers', views.CustomerViewSet, basename='customers')
+router.register('orders', views.OrderViewSet, basename='orders')
+router.register('product-types', views.ProductTypeAttributeValueViewSet, basename='product-types')
+# router.register(r'product-types/(?P<title>[\w-]+)', views.ProductTypeAttributeView, basename='product-types')
 
-urlpatterns = router.urls
+products_router = routers.NestedDefaultRouter(router, 'products', lookup='product')
+products_router.register('reviews', views.ReviewViewSet, basename='product-reviews')
 
-# urlpatterns = [
-#     path('api/', include(router.urls)),
-#     path(
-#         'api/products/<int:pk>/category/<str:category>/all/',
-#         views.list_product_by_category,
-#         name='list_product_by_category',
-#     ),
-# ]
+carts_router = routers.NestedDefaultRouter(router, 'carts', lookup='cart')
+carts_router.register('items', views.CartItemViewSet, basename='cart-items')
+
+urlpatterns = router.urls + products_router.urls + carts_router.urls

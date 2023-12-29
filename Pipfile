@@ -9,7 +9,12 @@ django-mptt = "0.15.0"
 djangorestframework = "3.14.0"
 drf-spectacular = "0.26.5"
 django-cors-headers = "4.3.0"
-pillow = "10.1.0"
+pillow = "*"
+django-filter = "*"
+drf-nested-routers = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
+cloudinary = "*"
 
 [dev-packages]
 django-debug-toolbar = "4.2.0"

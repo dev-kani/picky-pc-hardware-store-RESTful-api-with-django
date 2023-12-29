@@ -1,0 +1,245 @@
+[
+  {
+    "model": "store.attributevalue",
+    "pk": 1,
+    "fields": {
+      "attribute_value": "1920 x 1080 (Full HD)",
+      "attribute": 1,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 1,
+    "fields": {
+      "attribute_value": "1366 x 768 (HD)",
+      "attribute": 1,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 1,
+    "fields": {
+      "attribute_value": "2560 x 1440 (2K)",
+      "attribute": 1,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 1,
+    "fields": {
+      "attribute_value": "3840 x 2160 (4K)",
+      "attribute": 1,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "120GB",
+      "attribute": 4,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "240GB",
+      "attribute": 4,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "500GB",
+      "attribute": 4,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "1TB",
+      "attribute": 4,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "2TB",
+      "attribute": 4,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "4TB",
+      "attribute": 4,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "24",
+      "attribute": 3,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "19",
+      "attribute": 3,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "27",
+      "attribute": 3,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "32",
+      "attribute": 3,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "Seagate",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "Western Digital",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "Toshiba",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "Dell",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "LG",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "ViewSonic",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "ASUS",
+      "attribute": 2,
+      "for_filtering": true
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "4000",
+      "attribute": 5,
+      "for_filtering": false
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "4200",
+      "attribute": 5,
+      "for_filtering": false
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "5000",
+      "attribute": 5,
+      "for_filtering": false
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "5400",
+      "attribute": 5,
+      "for_filtering": false
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "5900",
+      "attribute": 5,
+      "for_filtering": false
+    }
+  },
+  {
+    "model": "store.attributevalue",
+    "pk": 2,
+    "fields": {
+      "attribute_value": "7200",
+      "attribute": 5,
+      "for_filtering": false
+    }
+  }
+]

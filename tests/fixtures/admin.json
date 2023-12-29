@@ -1,0 +1,14 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$kFmkaEnY9AHllBQl1lqTjl$biFrKEzd8aaeziUHHfXLFTraLuLRv2VIJLdvAYOsv1k=",
+      "is_superuser": true,
+      "username": "dev-kani",
+      "email": "dev.kani@gmail.com",
+      "is_staff": true,
+      "is_active": true
+    }
+  }
+]

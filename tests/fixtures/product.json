@@ -1,0 +1,50 @@
+[
+  {
+    "model": "store.product",
+    "pk": 1,
+    "fields": {
+      "title": "monitor 1",
+      "slug": "monitor-1",
+      "product_id": "MON01",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 1,
+      "category": 1,
+      "product_variant": [
+        {
+          "order": 0,
+          "price": 9999,
+          "sku": "string",
+          "stock_qty": 0,
+          "is_active": true,
+          "product_image": [
+            {
+              "alternative_text": "string",
+              "url": "string",
+              "order": 0
+            }
+          ],
+          "attribute_value": [
+            {
+              "attribute": {
+                "title": "string"
+              },
+              "attribute_value": "string",
+              "for_filtering": true
+            }
+          ]
+        }
+      ],
+      "attribute_value": [
+        {
+          "attribute": {
+            "title": "string"
+          },
+          "attribute_value": "string",
+          "for_filtering": true
+        }
+      ]
+    }
+  }
+]

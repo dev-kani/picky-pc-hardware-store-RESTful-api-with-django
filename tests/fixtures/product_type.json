@@ -1,0 +1,18 @@
+[
+  {
+    "model": "store.producttype",
+    "pk": 1,
+    "fields": {
+      "title": "monitor",
+      "parent": null
+    }
+  },
+  {
+    "model": "store.producttype",
+    "pk": 2,
+    "fields": {
+      "title": "hard_drive",
+      "parent": null
+    }
+  }
+]

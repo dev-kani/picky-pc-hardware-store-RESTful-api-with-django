@@ -1,0 +1,18 @@
+[
+  {
+    "model": "store.producttypeattribute",
+    "pk": 1,
+    "fields": {
+      "product_type": 1,
+      "attribute": 1
+    }
+  },
+  {
+    "model": "store.producttypeattribute",
+    "pk": 2,
+    "fields": {
+      "product_type": 2,
+      "attribute": 2
+    }
+  }
+]

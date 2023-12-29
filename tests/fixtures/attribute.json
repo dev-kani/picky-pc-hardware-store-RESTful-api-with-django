@@ -1,0 +1,44 @@
+[
+  {
+    "model": "store.attribute",
+    "pk": 2,
+    "fields": {
+      "title": "brand"
+    }
+  },
+  {
+    "model": "store.attribute",
+    "pk": 1,
+    "fields": {
+      "title": "resolution"
+    }
+  },
+  {
+    "model": "store.attribute",
+    "pk": 3,
+    "fields": {
+      "title": "display size"
+    }
+  },
+  {
+    "model": "store.attribute",
+    "pk": 4,
+    "fields": {
+      "title": "hd_capacity"
+    }
+  },
+  {
+    "model": "store.attribute",
+    "pk": 4,
+    "fields": {
+      "title": "refresh rate"
+    }
+  },
+  {
+    "model": "store.attribute",
+    "pk": 5,
+    "fields": {
+      "title": "rpm"
+    }
+  }
+]

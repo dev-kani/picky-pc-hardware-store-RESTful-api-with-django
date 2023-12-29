@@ -1,0 +1,126 @@
+{
+    "model": "store.product",
+    "pk": 2,
+    "fields": {
+      "title": "monitor 2",
+      "slug": "monitor-2",
+      "product_id": "MON02",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 1,
+      "category": 1
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 3,
+    "fields": {
+      "title": "hard drive 1",
+      "slug": "hard-drive-1",
+      "product_id": "HD01",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 4,
+    "fields": {
+      "title": "hard drive 2",
+      "slug": "hard-drive-2",
+      "product_id": "HD02",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 2,
+      "category": 2
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 5,
+    "fields": {
+      "title": "cpu 1",
+      "slug": "cpu-1",
+      "product_id": "CPU01",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 3,
+      "category": 3
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 6,
+    "fields": {
+      "title": "cpu 2",
+      "slug": "cpu-2",
+      "product_id": "CPU02",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 3,
+      "category": 3
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 7,
+    "fields": {
+      "title": "ram 1",
+      "slug": "ram-1",
+      "product_id": "RAM01",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 4,
+      "category": 4
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 8,
+    "fields": {
+      "title": "ram 2",
+      "slug": "ram-2",
+      "product_id": "RAM02",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 4,
+      "category": 4
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 9,
+    "fields": {
+      "title": "motherboard 1",
+      "slug": "motherboard-1",
+      "product_id": "MB01",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 5,
+      "category": 5
+    }
+  },
+  {
+    "model": "store.product",
+    "pk": 10,
+    "fields": {
+      "title": "motherboard 2",
+      "slug": "motherboard-2",
+      "product_id": "MB02",
+      "description": "",
+      "is_digital": false,
+      "is_active": true,
+      "product_type": 5,
+      "category": 5
+    }
+  }

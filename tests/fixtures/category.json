@@ -1,0 +1,67 @@
+[
+  {
+    "model": "store.category",
+    "pk": 1,
+    "fields": {
+      "title": "monitors",
+      "slug": "monitors",
+      "is_active": true,
+      "lft": 1,
+      "rght": 2,
+      "tree_id": 1,
+      "level": 0
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 2,
+    "fields": {
+      "title": "hard drives",
+      "slug": "hard-drives",
+      "is_active": true,
+      "lft": 1,
+      "rght": 2,
+      "tree_id": 2,
+      "level": 0
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 3,
+    "fields": {
+      "title": "cpus",
+      "slug": "cpus",
+      "is_active": true,
+      "lft": 1,
+      "rght": 2,
+      "tree_id": 3,
+      "level": 0
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 4,
+    "fields": {
+      "title": "rams",
+      "slug": "rams",
+      "is_active": true,
+      "lft": 1,
+      "rght": 2,
+      "tree_id": 4,
+      "level": 0
+    }
+  },
+  {
+    "model": "store.category",
+    "pk": 5,
+    "fields": {
+      "title": "motherboards",
+      "slug": "motherboards",
+      "is_active": true,
+      "lft": 1,
+      "rght": 2,
+      "tree_id": 5,
+      "level": 0
+    }
+  }
+]
