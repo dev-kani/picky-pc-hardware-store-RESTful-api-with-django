@@ -118,6 +118,11 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    # 'DEFAULT_RENDERER_CLASSES': [
+    # 'rest_framework.renderers.JSONRenderer',
+    # 'rest_framework.renderers.BrowsableAPIRenderer',
+    # 'rest_framework_xml.renderers.XMLRenderer',
+    # ],
     # Prevent rendering decimals as string
     'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -143,7 +148,9 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'core.serializers.UserCreateSerializer',
         'current_user': 'core.serializers.UserSerializer',
-    }
+    },
+    # 'USER_ID_FIELD': 'username',
+    # 'LOGIN_FIELD': 'email'
 }
 
 cloudinary.config(

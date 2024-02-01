@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from .models import (Category, Product, ProductVariant, ProductImage,
                      AttributeValue, Attribute, ProductType, Customer, Order,
-                     ProductAttributeValue, Cart, CartItem, Address
+                     ProductAttributeValue, Address, PaymentOption, OrderItem
                      )
 
 
@@ -86,9 +86,16 @@ class ProductVariantAdmin(admin.ModelAdmin):
     ]
 
 
+class OrderItem(admin.TabularInline):
+    model = OrderItem
+
+
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'placed_at', 'customer', 'payment_status']
+    inlines = [
+        OrderItem
+    ]
 
 
 class AttributeInline(admin.TabularInline):
@@ -133,14 +140,17 @@ class AttributeValueAdmin(admin.ModelAdmin):
     # autocomplete_fields = ['attribute_title']
 
 
-class CartItemInline(admin.StackedInline):
-    model = CartItem
-    extra = 1
+# class CartItemInline(admin.StackedInline):
+#     model = CartItem
+#     extra = 1
 
 
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    inlines = [CartItemInline]
-    # list_display = ['id', 'customer', 'created_at']
+# @admin.register(Cart)
+# class CartAdmin(admin.ModelAdmin):
+#     inlines = [CartItemInline]
+#     # list_display = ['id', 'customer', 'created_at']
 
 
+@admin.register(PaymentOption)
+class PaymentOptionAdmin(admin.ModelAdmin):
+    pass

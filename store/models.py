@@ -21,6 +21,7 @@ class IsActiveQuerySet(models.QuerySet):
 
 class Category(MPTTModel):
     objects = IsActiveQuerySet().as_manager()
+    # Adding 'db_index=True' improves the speed of data retrieval operations 
     title = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     is_active = models.BooleanField(default=False)
@@ -99,6 +100,7 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     is_digital = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
+    # featured = models.BooleanField(db_index=True)
     # promotions = models.ManyToManyField(Promotion)
     product_type = models.ForeignKey(
         ProductType, on_delete=models.PROTECT, related_name='product_type'
@@ -263,37 +265,6 @@ class Customer(models.Model):
         ordering = ['user__first_name', 'user__last_name']
 
 
-class Order(models.Model):
-    placed_at = models.DateTimeField(auto_now_add=True)
-    PAYMENT_STATUS = (
-        ('Pending', 'Pending'),
-        ('Complete', 'Complete'),
-        ('Failed', 'Failed'),
-    )
-    payment_status = models.CharField(
-        max_length=8, choices=PAYMENT_STATUS, default='Pending')
-    customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
-
-    class Meta:
-        permissions = [
-            ('cancel_order', 'Authorized to cancel orders')
-        ]
-
-    # total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    # is_paid = models.BooleanField(default=False)
-    # products = models.ManyToManyField('Product', through='OrderItem')
-
-    # def __str__(self):
-    #     return f'Order #{self.id} by {self.customer.full_name}'
-
-
-class OrderItem(models.Model):
-    quantity = models.PositiveSmallIntegerField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
-    order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name='order_items')
-
-
 class Address(models.Model):
     full_name = models.CharField(max_length=100)
     street_name = models.CharField(max_length=255)
@@ -312,23 +283,23 @@ class Address(models.Model):
         verbose_name_plural = "Addresses"
 
 
-class Cart(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4)
-    created_at = models.DateTimeField(auto_now_add=True)
+# class Cart(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid4)
+#     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_items')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1)]
-    )
+# class CartItem(models.Model):
+#     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_items')
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.PositiveSmallIntegerField(
+#         validators=[MinValueValidator(1)]
+#     )
+#
+#     class Meta:
+#         unique_together = ('cart', 'product')
 
-    class Meta:
-        unique_together = ('cart', 'product')
-
-    # created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    # updated_at = models.DateTimeField(auto_now=True, editable=False)
+# created_at = models.DateTimeField(auto_now_add=True, editable=False)
+# updated_at = models.DateTimeField(auto_now=True, editable=False)
 
 
 class Review(models.Model):
@@ -339,3 +310,46 @@ class Review(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
     posted_at = models.DateField(auto_now_add=True)
+
+
+class PaymentOption(models.Model):
+    name = models.CharField(max_length=30)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Order(models.Model):
+    placed_at = models.DateTimeField(auto_now_add=True)
+    PAYMENT_STATUS = (
+        ('Pending', 'Pending'),
+        ('Complete', 'Complete'),
+        ('Failed', 'Failed'),
+    )
+    payment_status = models.CharField(
+        max_length=8, choices=PAYMENT_STATUS, default='Pending')
+    customer = models.ForeignKey('Customer', on_delete=models.PROTECT)
+    selected_address = models.ForeignKey(Address, on_delete=models.PROTECT)
+    total = models.DecimalField(max_digits=6, decimal_places=2)
+
+    class Meta:
+        permissions = [
+            ('cancel_order', 'Authorized to cancel orders')
+        ]
+
+    # total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    # is_paid = models.BooleanField(default=False)
+    # products = models.ManyToManyField('Product', through='OrderItem')
+
+    # def __str__(self):
+    #     return f'Order #{self.id} by {self.customer.full_name}'
+
+
+class OrderItem(models.Model):
+    quantity = models.PositiveSmallIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    sku = models.CharField(max_length=50)
+    title = models.CharField(max_length=255)
+    product_variant = models.CharField(max_length=50)  # Assuming variant is a string field
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
