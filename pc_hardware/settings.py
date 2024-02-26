@@ -158,3 +158,10 @@ cloudinary.config(
     api_key="729786616481356",
     api_secret="IKCCTPdae7gpFXA1MCnzp-2pRwU"
 )
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'E-Commerce RESTful API with Django and DRF',
+    # 'DESCRIPTION': 'Your API Description',
+    'VERSION': 'v3.0.0',
+    # ... other options
+}

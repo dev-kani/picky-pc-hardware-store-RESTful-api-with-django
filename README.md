@@ -1,0 +1,1 @@
+![e-commerce-api-endpoints](media/pictures/drf-api-endpoints.png)
